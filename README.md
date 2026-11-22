@@ -159,6 +159,35 @@ Prefer the user-level client config over putting tokens in MCP project
 files. Only grant an agent access to project directories you intend to
 upload and review commands before letting it start remote jobs.
 
+### npm Distribution
+
+The `rigcast-mcp` npm package bundles the stdio launcher and all six
+native client builds. It requires Node.js 22 or later and uses the same
+private Rigcast config as the standalone binary. Once the package version
+is published, register it on a workstation without manually copying a
+binary:
+
+```sh
+codex mcp add rigcast -- npx -y rigcast-mcp@0.1.0
+```
+
+The npm package and the MCP Registry entry distribute only the client.
+They do not expose your daemon or include its URL, credentials, or data.
+
+To prepare a release, update the version in `npm/package.json` and both
+version fields in `server.json`, then run `make npm-pack`. That builds
+the binaries, collects third-party notices, and creates
+`dist/rigcast-mcp-<version>.tgz`. Use `tar -tzf` to inspect the package
+and `npm exec --yes --package=./dist/rigcast-mcp-0.1.0.tgz -- rigcast-mcp`
+to launch the packed server for a stdio test. Publish the tested tarball
+to npm before publishing `server.json` with `mcp-publisher`:
+
+```sh
+npm publish ./dist/rigcast-mcp-0.1.0.tgz --access public
+mcp-publisher login github
+mcp-publisher publish
+```
+
 ## Verification
 
 `make test` runs the SQLite, archive, HTTP, CLI, and MCP tests without

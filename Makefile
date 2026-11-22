@@ -1,10 +1,11 @@
 GO ?= go
+NODE ?= node
 VERSION ?= dev
 DIST ?= dist
 TARGETS := linux-amd64 linux-arm64 darwin-amd64 darwin-arm64 windows-amd64 windows-arm64
 GOFLAGS_RELEASE := -trimpath -ldflags "-s -w -X main.version=$(VERSION)"
 
-.PHONY: build test vet release $(TARGETS)
+.PHONY: build test vet release npm-pack $(TARGETS)
 
 build:
 	mkdir -p "$(DIST)"
@@ -17,6 +18,10 @@ vet:
 	$(GO) vet ./...
 
 release: $(TARGETS)
+
+npm-pack:
+	$(MAKE) release DIST="$(DIST)/npm-binaries" VERSION="$$($(NODE) -p 'require("./npm/package.json").version')"
+	GO="$(GO)" $(NODE) scripts/pack-npm.mjs "$(DIST)"
 
 $(TARGETS):
 	mkdir -p "$(DIST)"

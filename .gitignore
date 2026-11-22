@@ -1,3 +1,5 @@
 /dist/
 /rigcast
 /rigcast.exe
+/.mcpregistry*
+/.npmrc

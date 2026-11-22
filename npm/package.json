@@ -1,0 +1,30 @@
+{
+  "name": "rigcast-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rigcast MCP client for a private Docker-backed GPU host",
+  "mcpName": "io.github.Killian1023/rigcast",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Killian1023/rigcast.git",
+    "directory": "npm"
+  },
+  "bin": {
+    "rigcast-mcp": "launch.mjs"
+  },
+  "files": [
+    "launch.mjs",
+    "bin/",
+    "THIRD_PARTY_NOTICES.txt"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "os": ["darwin", "linux", "win32"],
+  "cpu": ["x64", "arm64"],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

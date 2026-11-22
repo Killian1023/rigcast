@@ -1,0 +1,32 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Killian1023/rigcast",
+  "title": "Rigcast",
+  "description": "Run GPU jobs, read logs, and fetch artifacts from your private Rigcast daemon.",
+  "repository": {
+    "url": "https://github.com/Killian1023/rigcast",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "rigcast-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "RIGCAST_HOST",
+          "description": "URL of your private Rigcast daemon, if not set in the workstation's Rigcast config."
+        },
+        {
+          "name": "RIGCAST_TOKEN",
+          "description": "Bearer token for your Rigcast daemon, if not set in the workstation's Rigcast config.",
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
